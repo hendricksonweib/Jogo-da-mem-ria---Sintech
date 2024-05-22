@@ -1,0 +1,29 @@
+.Logo-defalt {
+  width: 100%;
+}
+
+.H1-title {
+  font-size: 280%;
+  font-weight: bolder;
+  color: #ffc800;
+}
+
+.BtnPrimary {
+  background: linear-gradient(to right, #d17401, #ffb700);
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background 0.3s ease;
+  width: 30rem;
+}
+
+.BtnPrimary:hover {
+  background: linear-gradient(to right, #FFD700, #FFA500);
+}/*# sourceMappingURL=global.css.map */
