@@ -5,7 +5,7 @@ import Hat from '../../../public/Hat.png';
 import sun from '../../../public/sun.png';
 import Present from '../../../public/Present.png';
 import Rocket from '../../../public/Rocket.png';
-
+import LogoSintech from '../../../public/LogoSintech.svg'
 const images = {
   Buness,
   Idea,
@@ -23,7 +23,9 @@ const Card = ({ id, name, flipped, matched, clicked }) => {
         "card" + (flipped ? " flipped" : "") + (matched ? " matched" : "")
       }
     >
-      <div className="back">?</div>
+      <div className="back">
+      <img src={LogoSintech} alt="Logo Sintech Soluções" style={{ height: '38%' }} />
+      </div>
       <div className="front">
         <img alt={name} src={images[name]} />
       </div>
