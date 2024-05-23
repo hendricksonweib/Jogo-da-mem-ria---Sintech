@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '../layout/Card';
 import GameOver from './GameOver';
 
 function GameBoard() {
     const cards = [
-        "TV",
-        "TV",
-        "VT",
-        "VT",
-        "hbird",
-        "hbird",
-        "name",
-        "name",
-        "seal",
-        "seal",
-        "tracks",
-        "tracks"
+        "Work",
+        "Work",
+        "Person",
+        "Person",
+        "Hat",
+        "Hat",
+        "Computer",
+        "Computer",
+        "Present",
+        "Present",
+        "Sun",
+        "Sun"
     ];
 
     const shuffle = array => {
@@ -37,7 +37,7 @@ function GameBoard() {
             return {
                 id: index,
                 name: name,
-                flipped: false,
+                flipped: true,
                 matched: false
             };
         })
@@ -46,9 +46,19 @@ function GameBoard() {
     const [flippedCards, setFlippedCards] = useState([]);
     const [gameOver, setGameOver] = useState(false);
     const [isChecking, setIsChecking] = useState(false);
+    const [isPreview, setIsPreview] = useState(true); // Estado para modo de visualização
+
+    useEffect(() => {
+        // Vire todas as cartas para baixo após 5 segundos
+        const timer = setTimeout(() => {
+            setCardList(cardList.map(card => ({ ...card, flipped: false })));
+            setIsPreview(false);
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleClick = (name, index) => {
-        if (isChecking) return;
+        if (isChecking || isPreview) return; // Impede cliques durante a visualização
 
         let currentCard = {
             name,
@@ -106,7 +116,7 @@ function GameBoard() {
                 return {
                     id: index,
                     name: name,
-                    flipped: false,
+                    flipped: true,
                     matched: false
                 };
             })
@@ -115,6 +125,13 @@ function GameBoard() {
         setFlippedCards([]);
         setGameOver(false);
         setIsChecking(false);
+        setIsPreview(true); // Reinicia o modo de visualização
+
+        // Vire todas as cartas para baixo após 5 segundos
+        setTimeout(() => {
+            setCardList(cardList.map(card => ({ ...card, flipped: false })));
+            setIsPreview(false);
+        }, 1);
     };
 
     return (
