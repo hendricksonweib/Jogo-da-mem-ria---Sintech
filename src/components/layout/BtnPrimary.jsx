@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 import '../../style/global.css'
 
-function BtnPrimary({text}) {
-  return (
-    <div>
-        <button className='BtnPrimary'>{text}</button>
-    </div>
-  )
-}
+const BtnPrimary = ({ text, onClick }) => {
+    return (
+        <button className="BtnPrimary" onClick={onClick}>
+            {text}
+        </button>
+    );
+};
 
-export default BtnPrimary
+export default BtnPrimary;
