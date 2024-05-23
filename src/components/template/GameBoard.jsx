@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Card from '../layout/Card';
 import GameOver from './GameOver';
 
@@ -45,14 +45,16 @@ function GameBoard() {
 
     const [flippedCards, setFlippedCards] = useState([]);
     const [gameOver, setGameOver] = useState(false);
+    const [isChecking, setIsChecking] = useState(false);
 
     const handleClick = (name, index) => {
+        if (isChecking) return;
+
         let currentCard = {
             name,
             index
         };
 
-        //update card is flipped
         let updateCards = cardList.map(card => {
             if (card.id === index) {
                 card.flipped = true;
@@ -65,27 +67,29 @@ function GameBoard() {
         setCardList(updateCards);
 
         if (updateFlipped.length === 2) {
+            setIsChecking(true);
             setTimeout(() => {
-                check();
+                check(updateFlipped);
             }, 750);
         }
     };
 
-    const check = () => {
+    const check = (flipped) => {
         let updateCards = [...cardList];
         if (
-            flippedCards[0].name === flippedCards[1].name &&
-            flippedCards[0].index !== flippedCards[1].index
+            flipped[0].name === flipped[1].name &&
+            flipped[0].index !== flipped[1].index
         ) {
-            updateCards[flippedCards[0].index].matched = true;
-            updateCards[flippedCards[1].index].matched = true;
+            updateCards[flipped[0].index].matched = true;
+            updateCards[flipped[1].index].matched = true;
             isGameOver(updateCards);
         } else {
-            updateCards[flippedCards[0].index].flipped = false;
-            updateCards[flippedCards[1].index].flipped = false;
+            updateCards[flipped[0].index].flipped = false;
+            updateCards[flipped[1].index].flipped = false;
         }
         setCardList(updateCards);
         setFlippedCards([]);
+        setIsChecking(false);
     };
 
     const isGameOver = (updatedCards) => {
@@ -110,6 +114,7 @@ function GameBoard() {
 
         setFlippedCards([]);
         setGameOver(false);
+        setIsChecking(false);
     };
 
     return (
@@ -122,12 +127,12 @@ function GameBoard() {
                         name={card.name}
                         flipped={card.flipped}
                         matched={card.matched}
-                        clicked={flippedCards.length === 2 ? () => {} : () => handleClick(card.name, card.id)}
+                        clicked={() => handleClick(card.name, card.id)}
                     />
                 ))}
             {gameOver && <GameOver restartGame={restartGame} />}
         </div>
-    )
+    );
 }
 
 export default GameBoard;
