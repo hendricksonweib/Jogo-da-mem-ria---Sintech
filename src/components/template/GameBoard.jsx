@@ -4,18 +4,18 @@ import GameOver from './GameOver';
 
 function GameBoard() {
     const cards = [
-        "Work",
-        "Work",
-        "Person",
-        "Person",
+        "Buness",
+        "Buness",
+        "Idea",
+        "Idea",
         "Hat",
         "Hat",
-        "Computer",
-        "Computer",
+        "sun",
+        "sun",
         "Present",
         "Present",
-        "Sun",
-        "Sun"
+        "Rocket",
+        "Rocket"
     ];
 
     const shuffle = array => {

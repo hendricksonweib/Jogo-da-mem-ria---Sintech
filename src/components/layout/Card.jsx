@@ -10,7 +10,7 @@ const Card = ({ id, name, flipped, matched, clicked }) => {
     >
       <div className="back">?</div>
       <div className="front">
-        <img alt={name} src={`../../public/${name}.svg`} />
+        <img alt={name} src={`../../public/${name}.png`} />
       </div>
     </div>
   );
