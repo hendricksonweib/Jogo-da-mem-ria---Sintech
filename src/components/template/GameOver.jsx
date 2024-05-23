@@ -11,13 +11,13 @@ function GameOver() {
   };
 
   if (showGameBoard) {
-    return <Menu/>;
+    return <Menu />;
   }
 
   return (
     <div>
       <Flex item={'center'} direction={'column'} gaps={'15px'}>
-        <h1>Congrats!</h1>
+        <h1 className='H1-title'>Parabéns!</h1>
         <BtnPrimary text={'Jogar Novamente'} onClick={handleClick} />
       </Flex>
     </div>

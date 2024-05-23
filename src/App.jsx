@@ -7,8 +7,8 @@ function App() {
   return (
     <>
       <div className="app-conteiner">
-          {/* <Menu /> */}
-          <GameOver/>
+          <Menu />
+          {/* <GameOver/> */}
       </div>
     </>
   )
