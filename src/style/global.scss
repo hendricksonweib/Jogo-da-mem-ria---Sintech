@@ -29,6 +29,20 @@
   background: linear-gradient(to right, #FFD700, #FFA500);
 }
 
+.label-primary{
+  text-align: start;
+  font-weight: bolder;
+  color: #ffb700;
+  text-shadow: 2px 2px 4px rgba(2, 2, 2, 0.658);
+}
+.input-primary{
+  width: 99%;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 8px;
+  margin: 4px 2px;
+  padding: 2px 4px;
+}
 
 .game-board {
   display: flex;
