@@ -1,16 +1,12 @@
-import React from 'react'
-import '../../style/global.css'
-import Flex from '../layout/Flex'
+import React from 'react';
 
-function InputPrimary({ label, type }) {
+function InputPrimary({ type, label, value, onChange }) {
     return (
         <div>
-            <Flex item={'start'} gaps={'0px'} direction={'column'}>
-                <label className='label-primary' for="input">{label}</label>
-                <input className='input-primary' type={type} />
-            </Flex>
+            <label className='label-primary'>{label}</label>
+            <input  className="input-primary" type={type} value={value} onChange={onChange} />
         </div>
-    )
+    );
 }
 
-export default InputPrimary
+export default InputPrimary;
