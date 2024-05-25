@@ -111,9 +111,12 @@ function GameBoard() {
         const done = updatedCards.every(card => card.matched);
         if (done) {
             setGameOverMessage("Parabéns!");
-            localStorage.setItem('tempo', countdown);
+            const nome = localStorage.getItem('nome');
+            const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
+            ranking.push({ nome, tempo: countdown });
+            localStorage.setItem('ranking', JSON.stringify(ranking));
+            setGameOver(true);
         }
-        setGameOver(done);
     };
 
     const restartGame = () => {

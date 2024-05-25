@@ -40,9 +40,6 @@ function UserBoard() {
             if (response.ok) {
                 console.log('Dados enviados com sucesso!');
                 localStorage.setItem('nome', nome);
-                if (tempo !== null) {
-                    localStorage.setItem('tempo', tempo);
-                }
                 setNome('');
                 setEmail('');
                 setWhatsapp('');
@@ -82,7 +79,6 @@ function UserBoard() {
                     />
                     <BtnPrimary text={'Jogar'} type="submit" />
                 </form>
-                {tempo && <p>Tempo restante: {tempo} segundos</p>}
             </Flex>
         )
     );

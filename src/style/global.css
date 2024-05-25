@@ -52,6 +52,20 @@
   padding: 2px 4px;
 }
 
+.ranking-container {
+  background-color: rgba(0, 0, 255, 0.527);
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 2px 2px 4px rgba(2, 2, 2, 0.658);
+}
+.ranking-container .Ranking {
+  color: rgb(0, 0, 0);
+  list-style: none;
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  font-weight: bolder;
+}
+
 .game-board {
   display: flex;
   flex-wrap: wrap;
@@ -154,10 +168,12 @@
 }
 @media (max-width: 800px) {
   .H1-title {
-    font-size: 7vw; /* Ajuste de tamanho para tablets */
+    font-size: 7vw;
+    /* Ajuste de tamanho para tablets */
   }
   .Logo-defalt {
-    width: 60%; /* Ajuste de tamanho para tablets */
+    width: 60%;
+    /* Ajuste de tamanho para tablets */
   }
   .BtnPrimary {
     width: 80vw;
