@@ -46,7 +46,7 @@ function GameBoard() {
     const [flippedCards, setFlippedCards] = useState([]);
     const [gameOver, setGameOver] = useState(false);
     const [isChecking, setIsChecking] = useState(false);
-    const [isPreview, setIsPreview] = useState(true); // Estado para modo de visualização
+    const [isPreview, setIsPreview] = useState(true);
     const [countdown, setCountdown] = useState(45);
 
     useEffect(() => {
@@ -64,7 +64,6 @@ function GameBoard() {
             setCountdown(prevCountdown => {
                 if (prevCountdown === 0) {
                     clearInterval(interval);
-                    // Lógica para game over quando o tempo acabar
                     setGameOver(true);
                     return 0;
                 }
@@ -74,7 +73,7 @@ function GameBoard() {
     };
 
     const handleClick = (name, index) => {
-        if (isChecking || isPreview) return; // Impede cliques durante a visualização
+        if (isChecking || isPreview) return; 
 
         let currentCard = {
             name,
@@ -153,7 +152,7 @@ function GameBoard() {
 
     return (
         <div className="game-container">
-            <div className="countdown">Tempo: {countdown}</div>
+            {!gameOver && <div className="countdown">Tempo: {countdown}</div>}
             <div className="game-board">
                 {!gameOver &&
                     cardList.map((card, index) => (
