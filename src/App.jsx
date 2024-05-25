@@ -1,6 +1,7 @@
 import './App.css'
 import Menu from './components/template/Menu'
 import GameOver from './components/template/GameOver'
+import GameBoard from './components/template/GameBoard'
 import UserBoard from './components/template/UserBoard'
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
     <>
       <div className="app-conteiner">
           {/* <Menu /> */}
-          <UserBoard/>
+          {/* <UserBoard/> */}
+          <GameBoard/>
           {/* <GameOver/> */}
       </div>
     </>

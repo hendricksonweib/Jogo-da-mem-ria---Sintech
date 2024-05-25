@@ -47,15 +47,31 @@ function GameBoard() {
     const [gameOver, setGameOver] = useState(false);
     const [isChecking, setIsChecking] = useState(false);
     const [isPreview, setIsPreview] = useState(true); // Estado para modo de visualização
+    const [countdown, setCountdown] = useState(45);
 
     useEffect(() => {
         // Vire todas as cartas para baixo após 5 segundos
         const timer = setTimeout(() => {
             setCardList(cardList.map(card => ({ ...card, flipped: false })));
             setIsPreview(false);
+            startCountdown();
         }, 5000);
         return () => clearTimeout(timer);
     }, []);
+
+    const startCountdown = () => {
+        const interval = setInterval(() => {
+            setCountdown(prevCountdown => {
+                if (prevCountdown === 0) {
+                    clearInterval(interval);
+                    // Lógica para game over quando o tempo acabar
+                    setGameOver(true);
+                    return 0;
+                }
+                return prevCountdown - 1;
+            });
+        }, 1000);
+    };
 
     const handleClick = (name, index) => {
         if (isChecking || isPreview) return; // Impede cliques durante a visualização
@@ -125,29 +141,33 @@ function GameBoard() {
         setFlippedCards([]);
         setGameOver(false);
         setIsChecking(false);
-        setIsPreview(true); // Reinicia o modo de visualização
+        setIsPreview(true); 
+        setCountdown(45); 
 
-        // Vire todas as cartas para baixo após 5 segundos
         setTimeout(() => {
             setCardList(cardList.map(card => ({ ...card, flipped: false })));
             setIsPreview(false);
+            startCountdown();
         }, 1);
     };
 
     return (
-        <div className="game-board">
-            {!gameOver &&
-                cardList.map((card, index) => (
-                    <Card
-                        key={index}
-                        id={index}
-                        name={card.name}
-                        flipped={card.flipped}
-                        matched={card.matched}
-                        clicked={() => handleClick(card.name, card.id)}
-                    />
-                ))}
-            {gameOver && <GameOver restartGame={restartGame} />}
+        <div className="game-container">
+            <div className="countdown">Tempo: {countdown}</div>
+            <div className="game-board">
+                {!gameOver &&
+                    cardList.map((card, index) => (
+                        <Card
+                            key={index}
+                            id={index}
+                            name={card.name}
+                            flipped={card.flipped}
+                            matched={card.matched}
+                            clicked={() => handleClick(card.name, card.id)}
+                        />
+                    ))}
+                {gameOver && <GameOver restartGame={restartGame} />}
+            </div>
         </div>
     );
 }
