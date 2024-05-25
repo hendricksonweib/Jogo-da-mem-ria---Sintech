@@ -4,7 +4,9 @@ import Logoimg from '../../../public/Logo.svg';
 import '../../style/global.css';
 import BtnPrimary from '../layout/BtnPrimary';
 import UserBoard from './UserBoard';
-import LogoSintech from '../../../public/LogoSintech.svg'
+import LogoSintech from '../../../public/LogoSintech.svg';
+import GameOver from './GameOver'; // Importe o componente GameOver
+
 function Menu() {
     const [isPlaying, setIsPlaying] = useState(false);
 
@@ -14,6 +16,7 @@ function Menu() {
 
     return (
         <>
+            {/* Verifica se o usuário está jogando ou se o jogo acabou */}
             {isPlaying ? (
                 <UserBoard />
             ) : (
