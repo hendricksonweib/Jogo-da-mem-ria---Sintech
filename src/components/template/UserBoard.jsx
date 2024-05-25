@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../style/global.css';
 import InputPrimary from '../layout/InputPrimary';
 import BtnPrimary from '../layout/BtnPrimary';
 import Flex from '../layout/Flex';
 import GameBoard from './GameBoard';
+
 function UserBoard() {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [whatsapp, setWhatsapp] = useState('');
-    const [isPlaying, setIsPlaying] = useState(false);  
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [tempo, setTempo] = useState(null);
+
+    useEffect(() => {
+        const savedTempo = localStorage.getItem('tempo');
+        if (savedTempo) {
+            setTempo(savedTempo);
+        }
+    }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -31,10 +40,13 @@ function UserBoard() {
             if (response.ok) {
                 console.log('Dados enviados com sucesso!');
                 localStorage.setItem('nome', nome);
+                if (tempo !== null) {
+                    localStorage.setItem('tempo', tempo);
+                }
                 setNome('');
                 setEmail('');
                 setWhatsapp('');
-                setIsPlaying(true); 
+                setIsPlaying(true);
             } else {
                 console.error('Erro ao enviar dados.');
             }
@@ -70,6 +82,7 @@ function UserBoard() {
                     />
                     <BtnPrimary text={'Jogar'} type="submit" />
                 </form>
+                {tempo && <p>Tempo restante: {tempo} segundos</p>}
             </Flex>
         )
     );

@@ -19,10 +19,8 @@ function GameBoard() {
     ];
 
     const shuffle = array => {
-        let currentIndex = array.length,
-            temporaryValue,
-            randomIndex;
-        while (0 !== currentIndex) {
+        let currentIndex = array.length, temporaryValue, randomIndex;
+        while (currentIndex !== 0) {
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex -= 1;
             temporaryValue = array[currentIndex];
@@ -33,14 +31,12 @@ function GameBoard() {
     };
 
     const [cardList, setCardList] = useState(
-        shuffle(cards).map((name, index) => {
-            return {
-                id: index,
-                name: name,
-                flipped: true,
-                matched: false
-            };
-        })
+        shuffle([...cards]).map((name, index) => ({
+            id: index,
+            name: name,
+            flipped: true,
+            matched: false
+        }))
     );
 
     const [flippedCards, setFlippedCards] = useState([]);
@@ -51,9 +47,8 @@ function GameBoard() {
     const [gameOverMessage, setGameOverMessage] = useState("");
 
     useEffect(() => {
-        // Vire todas as cartas para baixo após 5 segundos
         const timer = setTimeout(() => {
-            setCardList(cardList.map(card => ({ ...card, flipped: false })));
+            setCardList(prevCardList => prevCardList.map(card => ({ ...card, flipped: false })));
             setIsPreview(false);
             startCountdown();
         }, 5000);
@@ -75,13 +70,9 @@ function GameBoard() {
     };
 
     const handleClick = (name, index) => {
-        if (isChecking || isPreview) return; 
+        if (isChecking || isPreview || cardList[index].flipped || cardList[index].matched) return;
 
-        let currentCard = {
-            name,
-            index
-        };
-
+        let currentCard = { name, index };
         let updateCards = cardList.map(card => {
             if (card.id === index) {
                 card.flipped = true;
@@ -103,10 +94,7 @@ function GameBoard() {
 
     const check = (flipped) => {
         let updateCards = [...cardList];
-        if (
-            flipped[0].name === flipped[1].name &&
-            flipped[0].index !== flipped[1].index
-        ) {
+        if (flipped[0].name === flipped[1].name && flipped[0].index !== flipped[1].index) {
             updateCards[flipped[0].index].matched = true;
             updateCards[flipped[1].index].matched = true;
             isGameOver(updateCards);
@@ -120,57 +108,52 @@ function GameBoard() {
     };
 
     const isGameOver = (updatedCards) => {
-        let done = true;
-        updatedCards.forEach(card => {
-            if (!card.matched) done = false;
-        });
+        const done = updatedCards.every(card => card.matched);
         if (done) {
             setGameOverMessage("Parabéns!");
+            localStorage.setItem('tempo', countdown);
         }
         setGameOver(done);
     };
 
     const restartGame = () => {
         setCardList(
-            shuffle(cards).map((name, index) => {
-                return {
-                    id: index,
-                    name: name,
-                    flipped: true,
-                    matched: false
-                };
-            })
+            shuffle([...cards]).map((name, index) => ({
+                id: index,
+                name: name,
+                flipped: true,
+                matched: false
+            }))
         );
 
         setFlippedCards([]);
         setGameOver(false);
         setIsChecking(false);
-        setIsPreview(true); 
-        setCountdown(45); 
-        setGameOverMessage(""); // Reset the game over message
+        setIsPreview(true);
+        setCountdown(45);
+        setGameOverMessage("");
 
         setTimeout(() => {
-            setCardList(cardList.map(card => ({ ...card, flipped: false })));
+            setCardList(prevCardList => prevCardList.map(card => ({ ...card, flipped: false })));
             setIsPreview(false);
             startCountdown();
-        }, 1);
+        }, 5000);
     };
 
     return (
         <div className="game-container">
             {!gameOver && <div className="countdown">Tempo: {countdown}</div>}
             <div className="game-board">
-                {!gameOver &&
-                    cardList.map((card, index) => (
-                        <Card
-                            key={index}
-                            id={index}
-                            name={card.name}
-                            flipped={card.flipped}
-                            matched={card.matched}
-                            clicked={() => handleClick(card.name, card.id)}
-                        />
-                    ))}
+                {!gameOver && cardList.map((card, index) => (
+                    <Card
+                        key={index}
+                        id={index}
+                        name={card.name}
+                        flipped={card.flipped}
+                        matched={card.matched}
+                        clicked={() => handleClick(card.name, card.id)}
+                    />
+                ))}
                 {gameOver && <GameOver restartGame={restartGame} message={gameOverMessage} />}
             </div>
         </div>
