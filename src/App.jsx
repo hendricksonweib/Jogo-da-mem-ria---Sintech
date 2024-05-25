@@ -9,9 +9,9 @@ function App() {
   return (
     <>
       <div className="app-conteiner">
-          {/* <Menu /> */}
+          <Menu />
           {/* <UserBoard/> */}
-          <GameBoard/>
+          {/* <GameBoard/> */}
           {/* <GameOver/> */}
       </div>
     </>

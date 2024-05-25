@@ -3,7 +3,7 @@ import Flex from '../layout/Flex';
 import Logoimg from '../../../public/Logo.svg';
 import '../../style/global.css';
 import BtnPrimary from '../layout/BtnPrimary';
-import GameBoard from './GameBoard';
+import UserBoard from './UserBoard';
 import LogoSintech from '../../../public/LogoSintech.svg'
 function Menu() {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -15,7 +15,7 @@ function Menu() {
     return (
         <>
             {isPlaying ? (
-                <GameBoard />
+                <UserBoard />
             ) : (
                 <div className="conteiner-menu">
                     <Flex item={'center'} gaps={'0px'} direction={'column'}>
