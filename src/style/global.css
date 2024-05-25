@@ -175,7 +175,14 @@
     width: 60%;
     /* Ajuste de tamanho para tablets */
   }
+  .countdown {
+    text-align: center;
+    font-size: 10vw;
+    font-weight: bolder;
+    color: #ffc800;
+    text-shadow: 2px 2px 4px rgba(2, 2, 2, 0.658);
+  }
   .BtnPrimary {
-    width: 80vw;
+    width: 99%;
   }
 }/*# sourceMappingURL=global.css.map */
