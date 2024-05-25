@@ -10,14 +10,6 @@ function UserBoard() {
     const [email, setEmail] = useState('');
     const [whatsapp, setWhatsapp] = useState('');
     const [isPlaying, setIsPlaying] = useState(false);
-    const [tempo, setTempo] = useState(null);
-
-    useEffect(() => {
-        const savedTempo = localStorage.getItem('tempo');
-        if (savedTempo) {
-            setTempo(savedTempo);
-        }
-    }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -39,10 +31,6 @@ function UserBoard() {
 
             if (response.ok) {
                 console.log('Dados enviados com sucesso!');
-                localStorage.setItem('nome', nome);
-                setNome('');
-                setEmail('');
-                setWhatsapp('');
                 setIsPlaying(true);
             } else {
                 console.error('Erro ao enviar dados.');
