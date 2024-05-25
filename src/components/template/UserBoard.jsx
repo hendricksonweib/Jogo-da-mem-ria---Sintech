@@ -13,13 +13,13 @@ function UserBoard() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
+
         const formData = {
             Nome: nome,
             Email: email,
             Whatsapp: whatsapp
         };
-    
+
         try {
             const response = await fetch('https://api.sheetmonkey.io/form/82SuDbPYXHKNmysmPXq4f', {
                 method: 'POST',
@@ -28,12 +28,10 @@ function UserBoard() {
                 },
                 body: JSON.stringify(formData)
             });
-    
+
             if (response.ok) {
                 console.log('Dados enviados com sucesso!');
-                // Atualiza o estado do nome e, em seguida, salva no localStorage
-                setNome(formData.Nome);
-                localStorage.setItem('nome', formData.Nome);
+                localStorage.setItem('nome', nome);
                 setIsPlaying(true);
             } else {
                 console.error('Erro ao enviar dados.');
@@ -42,6 +40,7 @@ function UserBoard() {
             console.error('Erro ao enviar dados:', error);
         }
     };
+
     return (
         isPlaying ? (
             <GameBoard />
