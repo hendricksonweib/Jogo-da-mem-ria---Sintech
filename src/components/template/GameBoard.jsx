@@ -48,6 +48,7 @@ function GameBoard() {
     const [isChecking, setIsChecking] = useState(false);
     const [isPreview, setIsPreview] = useState(true);
     const [countdown, setCountdown] = useState(45);
+    const [gameOverMessage, setGameOverMessage] = useState("");
 
     useEffect(() => {
         // Vire todas as cartas para baixo após 5 segundos
@@ -64,6 +65,7 @@ function GameBoard() {
             setCountdown(prevCountdown => {
                 if (prevCountdown === 0) {
                     clearInterval(interval);
+                    setGameOverMessage("Game Over");
                     setGameOver(true);
                     return 0;
                 }
@@ -122,6 +124,9 @@ function GameBoard() {
         updatedCards.forEach(card => {
             if (!card.matched) done = false;
         });
+        if (done) {
+            setGameOverMessage("Parabéns!");
+        }
         setGameOver(done);
     };
 
@@ -142,6 +147,7 @@ function GameBoard() {
         setIsChecking(false);
         setIsPreview(true); 
         setCountdown(45); 
+        setGameOverMessage(""); // Reset the game over message
 
         setTimeout(() => {
             setCardList(cardList.map(card => ({ ...card, flipped: false })));
@@ -165,7 +171,7 @@ function GameBoard() {
                             clicked={() => handleClick(card.name, card.id)}
                         />
                     ))}
-                {gameOver && <GameOver restartGame={restartGame} />}
+                {gameOver && <GameOver restartGame={restartGame} message={gameOverMessage} />}
             </div>
         </div>
     );
