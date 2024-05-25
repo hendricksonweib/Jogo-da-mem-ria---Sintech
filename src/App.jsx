@@ -9,10 +9,7 @@ function App() {
   return (
     <>
       <div className="app-conteiner">
-          {/* <Menu /> */}
-          {/* <UserBoard/> */}
-          {/* <GameBoard/> */}
-          <GameOver/>
+          <Menu />
       </div>
     </>
   )
